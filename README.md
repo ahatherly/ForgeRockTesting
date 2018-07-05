@@ -89,36 +89,50 @@ sudo chmod 777 -R /docker-data
 
 ## Starting and Configuring the services ##
 
-- First, start the OpenDJ container:
-
-```
-docker run -d --name opendj -p 1389:1389 -p 636:636 -p 4444:4444 -p 8989:8989 --volume /docker-data/opendj:/opt/opendj/db opendj
-docker run -d --name opendj -p 1389:1389 -p 636:636 -p 4444:4444 -p 8989:8989 opendj
-```
-
-- Test connecting to the LDAP directory:
-  - Install JXplorer: ```sudo apt install jxplorer```
-  - Start it and connect to localhost on port 1389
-  - You should see a tree view with userstore and cts branches
-
-- Now, start the openam container:
+- Start the openam container:
 
 ```
 docker run -it --name openam -p 8081:8080 -p 50389:50389 --volume /docker-data/openam:/home/forgerock/openam openam
 ```
 
 - Now, open a web browser and go to: http://localhost:8081/openam
-- Click "Custom Configuration"
+- Click "Default Configuration"
 - Scroll down and agree to the license
 - Set a password for the amAdmin account (password)
-- Leave server settings as defaults and click next
-- Choose "External DS"
-- Change the port to 1636
-- Set a password (password)
-- Leave the rest as default and click next
-- Set the password again (password)
-- Click Next
-- Click Next
-- Click Create Configuration
+- OpenAM should now install with an embedded directory
+
+
+## Create and configure a Realm and Client ##
+
+- Click create realm
+- Give it a name "test"
+- Click create
+- Add a client:
+	- Click Applications > Oauth2
+	- Click Add Client
+	- Set a clientid: java-test-client
+	- Set a secret: b0035f1e-e98b-4825-887e-789061c0b341
+	- Set a redirect URI: http://localhost:8080/strategicauthclient/redirect
+	- Set a scope: profile
+	- Click create
+- Add a service:
+	- Oauth2 Provider
+	- Scopes: profile
+	- Click Create
+- Create a user:
+	- Click Identities
+	- Click Add Identity
+	- Create a user with a password
+
+
+## Test using an OpenID Connect client
+
+- Make sure you configure the correct settings in the client:
+	- Clientid: java-test-client
+	- Secret: b0035f1e-e98b-4825-887e-789061c0b341
+	- Redirect URI: http://localhost:8080/strategicauthclient/redirect
+	- Authorisation endpoint: http://localhost:8081/openam/oauth2/realms/test/authorize
+	- Token endpoint: http://localhost:8081/openam/oauth2/realms/test/access_token
+
 
 

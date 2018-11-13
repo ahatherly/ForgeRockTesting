@@ -40,7 +40,7 @@ sudo usermod -aG docker $USER
 
 - Go to: https://go.forgerock.com/Registration-Trials-Download.html and create an account
 
-- Clone the forgeops repository and switch to the release 6 branch:
+- Clone the forgeops repository and switch to the relevant release branch:
 
 ```
 git clone https://github.com/ForgeRock/forgeops.git
@@ -110,8 +110,8 @@ docker run -it --name openam -p 8081:8080 -p 50389:50389 --volume /docker-data/o
 - Add a client:
 	- Click Applications > Oauth2
 	- Click Add Client
-	- Set a clientid: java-test-client
-	- Set a secret: b0035f1e-e98b-4825-887e-789061c0b341
+	- Set a clientid: 860700880739.apps.hackathon
+	- Set a secret: 862c1b29-d075-4da5-b6d9-3089140e04bd
 	- Set a redirect URI: http://localhost:8080/strategicauthclient/redirect
 	- Set a scope: profile
 	- Click create
@@ -122,17 +122,61 @@ docker run -it --name openam -p 8081:8080 -p 50389:50389 --volume /docker-data/o
 - Create a user:
 	- Click Identities
 	- Click Add Identity
-	- Create a user with a password
+	- Create a user with a password:
+		- 912345000001 / password123
 
 
 ## Test using an OpenID Connect client
 
 - Make sure you configure the correct settings in the client:
-	- Clientid: java-test-client
-	- Secret: b0035f1e-e98b-4825-887e-789061c0b341
+	- Clientid: 860700880739.apps.hackathon
+	- Secret: 862c1b29-d075-4da5-b6d9-3089140e04bd
 	- Redirect URI: http://localhost:8080/strategicauthclient/redirect
 	- Authorisation endpoint: http://localhost:8081/openam/oauth2/realms/test/authorize
 	- Token endpoint: http://localhost:8081/openam/oauth2/realms/test/access_token
 
+
+## Update directory to add an attribute to hold the consent decision (optional)
+
+- NOTE: There's almost certainly a better way to do this :) - see this page for instructions: https://backstage.forgerock.com/docs/am/6/maintenance-guide/index.html#sec-maint-datastore-customattr
+- Open a shell in the running container:
+
+```
+docker exec -it openam /bin/bash
+```
+
+- Create a file: /home/forgerock/openam/opends/config/custom-consent-attr.ldif
+- Add this content:
+
+```
+dn: cn=schema
+changetype: modify
+add: attributeTypes
+attributeTypes: ( temp-custom-attr-oid NAME 'consentPreferences' EQUALITY case
+ IgnoreMatch ORDERING caseIgnoreOrderingMatch SUBSTR caseIgnoreSubstrings
+ Match SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 USAGE userApplications )
+-
+add: objectClasses
+objectClasses: ( temp-custom-oc-oid NAME 'customObjectclass' SUP top AUXILIARY
+  MAY consentPreferences )
+```
+
+- Load it into the LDAP:
+
+```
+cd /home/forgerock/openam/opends
+bin/ldapmodify --port 50389 --hostname 127.0.0.1 --bindDN "cn=Directory Manager" --bindPassword password config/custom-consent-attr.ldif
+```
+
+- Use an LDAP client to edit the Self-Writable attributes as per instructions here: https://backstage.forgerock.com/docs/am/6/maintenance-guide/index.html#sec-maint-datastore-customattr
+- Restart OpenAM:
+
+```
+docker stop openam; docker start openam
+```
+
+- Log back into the OpenAM console and edit the OAuth2 provider entry
+- Click the small drop-down arrow to the right of "Advanced OpenID Connect" and click "Consent"
+- In the "Saved Consent Attribute Name" box, enter ```customAttribute``` and save changes
 
 

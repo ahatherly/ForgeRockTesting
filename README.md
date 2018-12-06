@@ -2,7 +2,7 @@
 
 This is a step-by-step guide to setting up a minimal ForgeRock OpenAM solution using Docker, and using it to authenticate and authorise access to resources.
 
-NOTE: These were notes I took while learning about the product and how it could be used to solve the particular problems I wanted to solve - it isn't intended to be comprehensive or accurate. For formal documentation, please refer to the online documentation:
+NOTE: These were notes I took while learning about the product and how it could be used to solve the particular problems I wanted to solve - it isn't intended to be a comprehensive OpenAM guide. For formal documentation, please refer to the online documentation:
 
 - https://backstage.forgerock.com/docs/am/6/maintenance-guide/
 - https://backstage.forgerock.com/docs/am/6/authorization-guide/

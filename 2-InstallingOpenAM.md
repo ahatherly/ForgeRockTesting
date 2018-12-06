@@ -40,7 +40,8 @@ docker images
 
 ```
 sudo mkdir -p /docker-data/openam
-sudo chmod 777 -R /docker-data
+sudo chown 11111 /docker-data/openam
+sudo chmod 777 -R /docker-data/openam
 ```
 
 ## Starting and Configuring the services ##

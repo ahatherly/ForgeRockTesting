@@ -9,12 +9,12 @@ NOTE: These were notes I took while learning about the product and how it could 
 
 ## Contents ##
 
-[Setting up Linux](1-SettingUp.md)
-[Installing OpenAM](2-InstallingOpenAM.md)
-[Create and configure a Realm and Client](3-CreateAndConfigureRealmAndClient.md)
-[Add consent attribute to embedded directory (optional)](4-AddAttributeToDirectory.md)
-Configure Scope-based User Authorisation
-Configure System-to-System Authorisation
-Adding custom claims to access token
+1. [Setting up Linux](1-SettingUp.md)
+2. [Installing OpenAM](2-InstallingOpenAM.md)
+3. [Create and configure a Realm and Client](3-CreateAndConfigureRealmAndClient.md)
+4. [Add consent attribute to embedded directory (optional)](4-AddAttributeToDirectory.md)
+5. Configure Scope-based User Authorisation
+6. Configure System-to-System Authorisation
+7. Adding custom claims to access token
 
 

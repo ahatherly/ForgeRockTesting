@@ -2,7 +2,7 @@
 
 - The scenario we will test is this:
 	- We have three users (set up previously with IDs 912345000001, 912345000002, 912345000003)
-	- We will use scopes in the form described in the SMART on FHIR standard
+	- We will use scopes in the form described in the [SMART on FHIR standard](http://hl7.org/fhir/smart-app-launch/scopes-and-launch-context/index.html)
 	- The first user (912345000001) is a clinician who should be able to read and write both Patient and Medication resources
 	- The second user (912345000002) is an administrative user, who should only be able to read and write Patient resources and not Medication resources
 	- The third user (912345000003) is an audit user, who should be able to read both resource types, but not write them

@@ -14,7 +14,7 @@ NOTE: These were notes I took while learning about the product and how it could 
 3. [Create and configure a Realm and Client](3-CreateAndConfigureRealmAndClient.md)
 4. [Add consent attribute to embedded directory (optional)](4-AddAttributeToDirectory.md)
 5. [Configure Scope-based User Authorisation](5-ScopeBasedUserAuthZ.md)
-6. Configure System-to-System Authorisation
-7. Adding custom claims to access token
+6. [Configure System-to-System Authorisation](6-SystemToSystemAuthZ.md)
+7. [Adding custom claims to access token](7-AddingCustomAccessTokenClaims.md)
 
 

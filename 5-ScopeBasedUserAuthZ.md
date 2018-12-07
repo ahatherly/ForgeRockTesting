@@ -59,13 +59,62 @@
 		- Click save changes
 		- You can click the Summary tab to review your policy settings
 
-## Change the default behaviour for requesting consent
+## Set up a second policy to explicitly deny scopes
 
 - The default behaviour when OpenAM applies policies for grant/deny scopes is:
 	- If the policy grants the scope, the user gets the scope in their token
 	- If the policy denies the scope, openam will request consent from the user, and if the user consents, the scope is then granted
 - This is not the behaviour we want - we never want to ask the user for their consent for these scopes, we want to simply grant or deny based on the policy alone.
-- To do this, we can override the consent handling to always automatically deny consent for any policies which the user would otherwise be prompted.
-- TO BE COMPLETED!!!
+- To do this, we need to create a second policy which explicitly denies the scope, so the user isn't prompted for consent:
+	- Click Policy Sets
+	- Click Default OAuth2 Scopes Policy Set
+	- Click Add a Policy:
+		- Name: Deny Policy
+		- Resource Type: OAuth2 Scope
+		- Resources: *
+		- In the next box that appears, type: Medication.read, then click Add
+		- Click Add Resource
+		- Repeat the previous three steps three times, speciying the other scopes (Medication.write, Patient.read and Patient.write)
+		- Click create
+	- Configure your new policy
+		- Click the Actions tab
+		- Click Add an Action, and choose Grant
+		- Ensure Deny is selected
+		- Click Save Changes
+		- Click the Subjects tab
+		- Click the small pencil icon to edit the default rule
+		- Select Authenticated Users from the drop-down
+		- Click the small tick icon to save your updates
+		- Click save changes
+		- Click the Environments tab
+		- Change the drop down from "All of..." to "Not..."
+		- Click Add an Condition Environment
+		- Select Script from the type dropdown
+		- Select your SMART on FHIR Sample Scope Policies Script
+		- Click the small tick icon to save your updates
+		- Click save changes
+		- You can click the Summary tab to review your policy settings
 
+## Test using Postman
+
+- Open postman and create a new request
+- Click the "Authorization" tab
+- Select OAuth 2.0 from the type dropdown
+- Click "Get New Access Token"
+	- Token name: OpenAMAccessToken
+	- Grant type: Authorization Code
+	- Redirection URI: https://www.getpostman.com/oauth2/callback
+	- Auth URL: http://localhost:8081/openam/oauth2/realms/test/authorize
+	- Access Token URL: http://localhost:8081/openam/oauth2/realms/test/access_token
+	- Client ID: 087718952371.apps.hackathon
+	- Client Secret: 99990f8e-dc68-47d7-89aa-bf0f8b31ef79
+	- Scope: Medication.read
+	- State: Any random value
+	- Client Authentication: Send as Basic Auth header
+- Click "Request Token"
+- Enter a username and password: 912345000001 / password123
+- You should now see the JWT content, and you can see that the Medication.read scope was allowed.
+- You can now re-test using the second user account (the administrative user), which should not be allowed that scope.
+- To clear your login session and allow you to log in again in Postman, click the "Cookies" link near the top right of the screen, and delete the two cookies created by openam
+- When all requested scopes are denied, openam will return an error response rather than a token, so you will see that as an error response in Postman
 

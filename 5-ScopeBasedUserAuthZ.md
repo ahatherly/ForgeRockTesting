@@ -118,3 +118,32 @@
 - To clear your login session and allow you to log in again in Postman, click the "Cookies" link near the top right of the screen, and delete the two cookies created by openam
 - When all requested scopes are denied, openam will return an error response rather than a token, so you will see that as an error response in Postman
 
+## Sample Access token content
+
+- Taking the first Postman example above, the decoded JWT which is returned looks like this:
+
+```json
+{
+  "sub": "912345000001",
+  "cts": "OAUTH2_STATELESS_GRANT",
+  "auth_level": 0,
+  "auditTrackingId": "306f4090-645d-48b7-ab7a-0f2345cc2233-161442",
+  "iss": "http://localhost:8081/openam/oauth2/realms/root/realms/test",
+  "tokenName": "access_token",
+  "token_type": "Bearer",
+  "authGrantId": "60xKcEXxgn4RSzfOq1Wy7YCYfgw",
+  "aud": "087718952371.apps.hackathon",
+  "nbf": 1544198823,
+  "grant_type": "authorization_code",
+  "scope": [
+    "Medication.read"
+  ],
+  "auth_time": 1544198823,
+  "realm": "/test",
+  "exp": 1544202423,
+  "iat": 1544198823,
+  "expires_in": 3600,
+  "jti": "n1TqpMYgYEyv1Db_ZIKfuSYzqUY"
+}
+```
+

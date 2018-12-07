@@ -50,3 +50,32 @@ curl -i -H 'Content-Type: application/x-www-form-urlencoded' -X POST http://loca
 ```
 curl -i -H 'Content-Type: application/x-www-form-urlencoded' -X POST http://localhost:8081/openam/oauth2/realms/test/access_token -d 'grant_type=client_credentials&client_id=PatientClient&client_secret=4e5d00f3-ada7-408b-a856-1a988f1309f4&scope=Medication.read%20Medication.write%20Patient.read%20Patient.write'
 ```
+
+## Sample Access token content
+
+- Taking the first cURL example above, the decoded JWT which is returned looks like this:
+
+```json
+{
+  "sub": "MedicationsClient",
+  "cts": "OAUTH2_STATELESS_GRANT",
+  "auditTrackingId": "306f4090-645d-48b7-ab7a-0f2345cc2233-160448",
+  "iss": "http://localhost:8081/openam/oauth2/realms/root/realms/test",
+  "tokenName": "access_token",
+  "token_type": "Bearer",
+  "authGrantId": "yyChRcvpfgSWhM8WiYHg7ZekVuw",
+  "aud": "MedicationsClient",
+  "nbf": 1544198678,
+  "grant_type": "client_credentials",
+  "scope": [
+    "Medication.write",
+    "Medication.read"
+  ],
+  "auth_time": 1544198678,
+  "realm": "/test",
+  "exp": 1544202278,
+  "iat": 1544198678,
+  "expires_in": 3600,
+  "jti": "RzW5jAtx4s01JD9xiPM_qxfYpbA"
+}
+```

@@ -63,7 +63,7 @@
 
 - The default behaviour when OpenAM applies policies for grant/deny scopes is:
 	- If the policy grants the scope, the user gets the scope in their token
-	- If the policy denies the scope, openam will request consent from the user, and if the user consents, the scope is then granted
+	- If the policy doesn't grant the scope, openam will request consent from the user, and if the user consents, the scope is then granted
 - This is not the behaviour we want - we never want to ask the user for their consent for these scopes, we want to simply grant or deny based on the policy alone.
 - To do this, we need to create a second policy which explicitly denies the scope, so the user isn't prompted for consent:
 	- Click Policy Sets

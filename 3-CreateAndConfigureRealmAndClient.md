@@ -9,7 +9,7 @@
 	- Set a clientid: 860700880739.apps.hackathon
 	- Set a secret: 862c1b29-d075-4da5-b6d9-3089140e04bd
 	- Set a redirect URI: http://localhost:8080/strategicauthclient/redirect
-	- Set 5 scopes (press tab after entering each one): profile Medication.read Medication.write Patient.read Patient.write
+	- Set 5 scopes (press tab after entering each one): profile user/Medication.read user/Medication.write user/Patient.read user/Patient.write
 	- Click create
 - Go back into the OAuth2 provider settings
 	- Turn the "Use Stateless Access & Refresh Tokens" to ON
@@ -18,11 +18,11 @@
 	- Set a clientid: 087718952371.apps.hackathon
 	- Set a secret: 99990f8e-dc68-47d7-89aa-bf0f8b31ef79
 	- Set a redirect URI: https://www.getpostman.com/oauth2/callback
-	- Set 5 scopes (press tab after entering each one): profile Medication.read Medication.write Patient.read Patient.write
+	- Set 5 scopes (press tab after entering each one): profile user/Medication.read user/Medication.write user/Patient.read user/Patient.write
 	- Click create
 - Add a service:
 	- Services > Add a Service > Oauth2 Provider
-	- Scopes (press tab after entering each one): profile Medication.read Medication.write Patient.read Patient.write
+	- Scopes (press tab after entering each one): profile user/Medication.read user/Medication.write user/Patient.read user/Patient.write
 	- Click Create
 - Create a user:
 	- Click Identities

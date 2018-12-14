@@ -2,7 +2,7 @@
 
 - The scenario we will test is this:
 	- We have three users (set up previously with IDs 912345000001, 912345000002, 912345000003)
-	- We will use scopes in the form described in the [SMART on FHIR standard](http://hl7.org/fhir/smart-app-launch/scopes-and-launch-context/index.html) (note: I missed off the user/ or patient/ prefix by mistake - it should work the same with this prefix added!)
+	- We will use scopes in the form described in the [SMART on FHIR standard](http://hl7.org/fhir/smart-app-launch/scopes-and-launch-context/index.html)
 	- The first user (912345000001) is a clinician who should be able to read and write both Patient and Medication resources
 	- The second user (912345000002) is an administrative user, who should only be able to read and write Patient resources and not Medication resources
 	- The third user (912345000003) is an audit user, who should be able to read both resource types, but not write them
@@ -38,7 +38,7 @@
 		- Resources: *
 		- In the next box that appears, type: Medication.read, then click Add
 		- Click Add Resource
-		- Repeat the previous three steps three times, speciying the other scopes (Medication.write, Patient.read and Patient.write)
+		- Repeat the previous three steps three times, speciying the other scopes (user/Medication.write, user/Patient.read and user/Patient.write)
 		- Click create
 	- Configure your new policy
 		- Note: The Web UI for this part is a bit picky, so please follow the below steps carefully!
@@ -72,9 +72,9 @@
 		- Name: Deny Policy
 		- Resource Type: OAuth2 Scope
 		- Resources: *
-		- In the next box that appears, type: Medication.read, then click Add
+		- In the next box that appears, type: user/Medication.read, then click Add
 		- Click Add Resource
-		- Repeat the previous three steps three times, speciying the other scopes (Medication.write, Patient.read and Patient.write)
+		- Repeat the previous three steps three times, speciying the other scopes (user/Medication.write, user/Patient.read and user/Patient.write)
 		- Click create
 	- Configure your new policy
 		- Click the Actions tab
@@ -108,12 +108,12 @@
 	- Access Token URL: http://localhost:8081/openam/oauth2/realms/test/access_token
 	- Client ID: 087718952371.apps.hackathon
 	- Client Secret: 99990f8e-dc68-47d7-89aa-bf0f8b31ef79
-	- Scope: Medication.read
+	- Scope: user/Medication.read
 	- State: Any random value
 	- Client Authentication: Send as Basic Auth header
 - Click "Request Token"
 - Enter a username and password: 912345000001 / password123
-- You should now see the JWT content, and you can see that the Medication.read scope was allowed.
+- You should now see the JWT content, and you can see that the user/Medication.read scope was allowed.
 - You can now re-test using the second user account (the administrative user), which should not be allowed that scope.
 - To clear your login session and allow you to log in again in Postman, click the "Cookies" link near the top right of the screen, and delete the two cookies created by openam
 - When all requested scopes are denied, openam will return an error response rather than a token, so you will see that as an error response in Postman
@@ -136,7 +136,7 @@
   "nbf": 1544198823,
   "grant_type": "authorization_code",
   "scope": [
-    "Medication.read"
+    "user/Medication.read"
   ],
   "auth_time": 1544198823,
   "realm": "/test",

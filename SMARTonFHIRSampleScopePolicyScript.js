@@ -38,14 +38,14 @@ function applyUserPermissions() {
       return true;
   } else if (isAdministrativeUser) {
       logger.message("Aministrative user - allowing only Patient scopes.");
-      if (resourceURI == 'Patient.read' || resourceURI == 'Patient.write') {
+      if (resourceURI == 'user/Patient.read' || resourceURI == 'user/Patient.write') {
         return true;
       } else {
         return false;
       }
   } else if (isAuditUser) {
       logger.message("Audit user - allowing only read scopes.");
-      if (resourceURI == 'Patient.read' || resourceURI == 'Medication.read') {
+      if (resourceURI == 'user/Patient.read' || resourceURI == 'user/Medication.read') {
         return true;
       } else {
         return false;
@@ -62,14 +62,14 @@ function applyUserPermissions() {
 function applySystemPermissions() {
   if (isMedicationsClient) {
       logger.message("Medications System - allowing only Medication scopes.");
-      if (resourceURI == 'Medication.read' || resourceURI == 'Medication.write') {
+      if (resourceURI == 'user/Medication.read' || resourceURI == 'user/Medication.write') {
         return true;
       } else {
         return false;
       }
   } else if (isPatientClient) {
       logger.message("Patient System - allowing only Patient scopes.");
-      if (resourceURI == 'Patient.read' || resourceURI == 'Patient.write') {
+      if (resourceURI == 'user/Patient.read' || resourceURI == 'user/Patient.write') {
         return true;
       } else {
         return false;

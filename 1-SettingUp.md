@@ -34,3 +34,19 @@ sudo usermod -aG docker $USER
 ```
 
 - You'll need to log out and in again now for this to take effect (closing and re-opening the terminal window will do)
+
+## Set-up in Amazon Linux ##
+
+If you're using Amazon linux use these commands instead:
+
+```
+sudo yum update -y
+sudo yum install git
+sudo amazon-linux-extras install docker
+sudo systemctl start docker
+sudo systemctl enable docker
+sudo usermod -a -G docker $USER
+```
+
+- You'll need to log out and in again now for this to take effect (closing and re-opening the terminal window will do)
+

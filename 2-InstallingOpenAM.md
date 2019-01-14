@@ -58,3 +58,28 @@ docker run -d --name openam -p 8081:8080 -p 50389:50389 --volume /docker-data/op
 - Set a password for the amAdmin account (password)
 - OpenAM should now install with an embedded directory
 
+## Installing version 6.5 ##
+
+The Dockerfile for OpenAM in the forgeops repository now makes use of a downloader image which you have to build seperately and provide a key to download the binaries from the ForgeRock website. We don't really want to bother with that, but luckily we can just tweak the dockerfile to work like the version 6.0 one. To do that, edit the forgeops/docker/openam/Dockerfile and replace the first few lines (up to line 13) with the below:
+
+```
+# AM Dockerfile
+#
+# Copyright (c) 2016-2018 ForgeRock AS.
+#
+#FROM forgerock/downloader 
+
+#ARG VERSION="6.5.0"
+#RUN download -v $VERSION openam 
+#RUN mkdir -p /var/tmp/openam && unzip -q /openam.war -d /var/tmp/openam
+
+FROM tomcat:8.5-alpine
+
+COPY openam.war /openam.war
+RUN mkdir -p /var/tmp/openam && unzip -q /openam.war -d /var/tmp/openam
+
+RUN rm -fr "$CATALINA_HOME"/webapps/*
+
+RUN mv /var/tmp/openam "$CATALINA_HOME"/webapps/openam
+```
+

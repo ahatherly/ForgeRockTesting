@@ -87,8 +87,10 @@
 ```
 vi /home/wso2carbon/wso2am-2.6.0/repository/deployment/server/jaggeryapps/store/site/conf/site.json
 ```
-	- Take note of the redirectURI in the oidcConfiguration section of this file - go back into the management console, and edit your "Service Provider" entry, setting this value as the "callback URL" for your service provider.
-	- Replace the config in the oidcConfiguration section with values for your WSO2 oauth endpoint and service provider configured above (with the exception of the callback URL which you should leave as it is!):
+
+- Take note of the redirectURI in the oidcConfiguration section of this file - go back into the management console, and edit your "Service Provider" entry, setting this value as the "callback URL" for your service provider.
+- Replace the config in the oidcConfiguration section with values for your WSO2 oauth endpoint and service provider configured above (with the exception of the callback URL which you should leave as it is!):
+
 ```json
   "oidcConfiguration" : {
     "enabled" : "true",
@@ -112,7 +114,8 @@ vi /home/wso2carbon/wso2am-2.6.0/repository/deployment/server/jaggeryapps/store/
     }
   },
 ```
-	- Save the changes to this file
+
+- Save the changes to this file
 - Now, when you go to the store (https://localhost:9443/store/) and click the login button, you should be redirected to the OpenAM login page
 - After logging in, you may be asked to consent to the scopes requested by WSO2
 - After consenting, your user profile information will automatically be replicated into the WSO2 user database, and from there passed into the store application

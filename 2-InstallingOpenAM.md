@@ -58,6 +58,17 @@ docker run -d --name openam -p 8081:8080 -p 50389:50389 --volume /docker-data/op
 - Set a password for the amAdmin account (password)
 - OpenAM should now install with an embedded directory
 
+## Installing behind a reverse proxy ##
+
+- If you are installing OpenAM behind a reverse proxy, or use a hostfile to alias it to a nicer hostname for testing, you may find the configuration wizard has problems resolving it's own address to establish free ports for the embedded directory.
+- If so, you can resolve this by adding a host entry into the container to resolve the hostname to localhost.
+- To do this, add the following parameter to your docker run command, which will inject your hostname into the hosts file inside the container:
+```
+--add-host my-nice-openam-hostname.com:127.0.0.1
+```
+- Make sure you are using this hostname when running the configuration wizard, so it can detect that this is the hostname it will be running on.
+- Also, note that the configuration wizard uses frames, so if your reverse proxy is adding a "X-Frame-Options DENY" header (which is common for security reasons), you won't see the progress in the wizard (note: it will still work, but you won't see any progress or know when it is complete).
+
 ## Installing version 6.5 ##
 
 The Dockerfile for OpenAM in the forgeops repository now makes use of a downloader image which you have to build seperately and provide a key to download the binaries from the ForgeRock website. We don't really want to bother with that, but luckily we can just tweak the dockerfile to work like the version 6.0 one. To do that, edit the forgeops/docker/openam/Dockerfile and replace the first few lines (up to line 13) with the below:

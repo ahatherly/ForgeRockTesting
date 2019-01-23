@@ -16,5 +16,5 @@ NOTE: These were notes I took while learning about the product and how it could 
 5. [Configure Scope-based User Authorisation](5-ScopeBasedUserAuthZ.md)
 6. [Configure System-to-System Authorisation](6-SystemToSystemAuthZ.md)
 7. [Adding custom claims to access token](7-AddingCustomAccessTokenClaims.md)
-
+8. [Federating with WSO2 API Manager](8-FederatingWithWSO2.md)
 

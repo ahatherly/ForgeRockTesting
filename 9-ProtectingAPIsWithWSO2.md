@@ -114,3 +114,9 @@ Transfer-Encoding: chunked
 	- Expand an API method section and click the "try me" button
 	- Enter any required parameters, and click "Execute" to test your API
 	- If it all worked correctly, your API call should now execute!
+
+## Next - Limiting access based on specific scopes
+
+- Now, we need to configure the API to require specific scopes to be present in these tokens to gain access to resources.
+- ......COMING SOON......
+
